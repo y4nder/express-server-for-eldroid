@@ -1,17 +1,28 @@
 require("dotenv").config();
 
 const validateHeader = (req, res, next) => {
-    const api = req.header("api_key");
-    const my_api_key = process.env.API_KEY;
+    const authHeader = req.headers["authorization"];
 
-    if (!api) {
-        return res.status(400).send("missing api key");
+    // Check if the Authorization header exists
+    if (!authHeader) {
+        return res.status(401).json({ message: "Authorization header missing" });
     }
 
-    if (api !== my_api_key) {
-        return res.status(401).send("invalid api key");
+    // Ensure the token is a Bearer token
+    const tokenParts = authHeader.split(" ");
+    if (tokenParts[0] !== "Bearer" || tokenParts.length !== 2) {
+        return res.status(401).json({ message: "Invalid token format" });
     }
 
+    const token = tokenParts[1];
+    const validToken = process.env.API_KEY;
+
+    // Check if the token matches the valid token
+    if (token !== validToken) {
+        return res.status(403).json({ message: "Invalid or expired token" });
+    }
+
+    // If the token is valid, proceed to the next middleware or route handler
     next();
 };
 
