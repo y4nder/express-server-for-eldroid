@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const users = [new User({ username: "leander", password: "123" })];
+const users = [new User({ username: "leander", password: "123" }), new User({ username: "admin", password: "123" }), new User({ username: "lubguban", password: "123" })];
 
 //mock db
 const db = {
