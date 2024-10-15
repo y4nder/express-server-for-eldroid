@@ -9,4 +9,4 @@
 -- INSERT INTO users (username, email, password)
 -- VALUES('leander', 'lorenzolugbuban@gmail.com', '123');
 
-SELECT * FROM users;
+DELETE FROM users WHERE username = 'yander';

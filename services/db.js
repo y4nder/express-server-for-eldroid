@@ -1,28 +1,8 @@
 const User = require("../models/User");
-const users = [new User({ username: "leander", password: "123" }), new User({ username: "admin", password: "123" }), new User({ username: "lubguban", password: "123" })];
 
 const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
 
 const dbPath = "./sqlite/AppDb.db";
-
-//mock db
-// const db = {
-//     insert: (user) => {
-//         users.push(user);
-//         console.log(users);
-//         return user;
-//     },
-//     find: (query) => {
-//         return users.find((user) => user.username === query.username);
-//     },
-//     findById: (query) => {
-//         return users.find((user) => user.id === query.id);
-//     },
-//     all: () => {
-//         return users;
-//     },
-// };
 
 let sqliteDb = new sqlite3.Database(dbPath, (err) => {
     if (err) {
