@@ -4,15 +4,47 @@ class UserRepository {
     }
 
     async save(user) {
-        return this.db.insert(user);
+        return new Promise((resolve, reject) => {
+            this.db.insert(user, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(result);
+            });
+        });
     }
 
     async findByUserName(username) {
-        return this.db.find({ username });
+        return new Promise((resolve, reject) => {
+            this.db.find({ username }, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(user);
+            });
+        });
+    }
+
+    async findById(id) {
+        return new Promise((resolve, reject) => {
+            this.db.findById(id, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(user);
+            });
+        });
     }
 
     async getAllUserNames() {
-        return this.db.all();
+        return new Promise((resolve, reject) => {
+            this.db.all((err, users) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(users); //
+            });
+        });
     }
 }
 

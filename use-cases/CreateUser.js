@@ -6,7 +6,7 @@ class CreateUser {
 
     async execute(userData) {
         const user = new User(userData);
-        if (!userData.username || !userData.password) {
+        if (!userData.username || !userData.password || !userData.email) {
             console.log("error");
             throw new Error("missing parameters");
         }

@@ -11,8 +11,15 @@ class UserController {
 
     async createUser(req, res) {
         console.log("hello from create user");
+        const { username, email, password } = req.body; // Destructure the user object
+
+        if (!username || !email || !password) {
+            return res.status(400).json({ error: "Username, email, and password are required." });
+        }
+
         const createUser = new CreateUser(this.userRepository);
         try {
+            const c = { username: username, email: email, password: password };
             const user = await createUser.execute(req.body);
             res.status(201).json(user);
         } catch (error) {
