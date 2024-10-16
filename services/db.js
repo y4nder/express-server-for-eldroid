@@ -1,5 +1,3 @@
-const User = require("../models/User");
-
 const sqlite3 = require("sqlite3").verbose();
 
 const dbPath = "./sqlite/AppDb.db";
@@ -39,6 +37,13 @@ const sqliteDBInstance = {
 
     findById: (id, callback) => {
         sqliteDb.get(`SELECT * FROM users WHERE id = ?`, [id], (err, row) => {
+            if (err) return callback(err, null);
+            callback(null, row);
+        });
+    },
+
+    findByEmail: (query, callback) => {
+        sqliteDb.get(`SELECT * FROM users WHERE email = ?`, [query.email], (err, row) => {
             if (err) return callback(err, null);
             callback(null, row);
         });

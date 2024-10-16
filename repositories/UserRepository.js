@@ -25,6 +25,17 @@ class UserRepository {
         });
     }
 
+    async findByEmail(email) {
+        return new Promise((resolve, reject) => {
+            this.db.findByEmail({ email }, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(user);
+            });
+        });
+    }
+
     async findById(id) {
         return new Promise((resolve, reject) => {
             this.db.findById(id, (err, user) => {
